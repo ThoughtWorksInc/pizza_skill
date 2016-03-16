@@ -13,12 +13,15 @@ defmodule PizzaSkill do
     order = get_order(request) |> add_items(request)
     response
       |> Response.set_attribute("order", order)
-      |> say("Certainly")
+      |> say("Certainly. #{Order.say(order)} Shall I place the order now?")
       |> should_end_session(false)
   end
 
   defp get_order(request) do
-    Request.attribute(request, "order") || %{}
+    case Request.attribute(request, "order") do
+      nil -> %Order{}
+      map -> Order.from_map(map)
+    end
   end
 
   defp add_items(order, request) do

@@ -27,6 +27,10 @@ defmodule PizzaSkill.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:alexa, "~> 0.1.6"}]
+    [
+      {:alexa, "~> 0.1.6"},
+      {:poison, "~> 2.0"},
+      { :inflex, "~> 1.5.0" }
+    ]
   end
 end

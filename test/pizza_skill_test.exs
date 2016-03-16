@@ -1,6 +1,6 @@
 defmodule PizzaSkillTest do
   use ExUnit.Case
-  alias PizzaSkill.{Order, Item}
+  alias PizzaSkill.{Order, LineItem}
   import Alexa.Response
   import Alexa.TestHelpers
   doctest PizzaSkill
@@ -20,11 +20,18 @@ defmodule PizzaSkillTest do
     request = intent_request(@app_id, "AddToOrder", @user_id, slot_values)
     response = Alexa.handle_request(request)
 
-    order = attribute(response, "order")
-    assert 1 = Order.num_items(order)
-    item = Order.items(order) |> List.first
-    assert "Meat Lovers" = Item.name(item)
-    assert 1 = Item.quantity(item)
+    assert %Order{
+      items: [ %LineItem{ name: "Meat Lovers", qty: 1 } ]
+    } = attribute(response, "order")
+  end
+
+  test "AddToOrder - with a single item - responds correctly" do
+    slot_values = %{ "item1" => "Meat Lovers" }
+    request = intent_request(@app_id, "AddToOrder", @user_id, slot_values)
+    response = Alexa.handle_request(request)
+
+    assert "Certainly. One Meat Lovers pizza. Shall I place the order now?" = say(response)
+    refute should_end_session(response)
   end
 
 end
