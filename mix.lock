@@ -1,0 +1,2 @@
+%{"alexa": {:hex, :alexa, "0.1.6"},
+  "poison": {:hex, :poison, "2.1.0"}}
