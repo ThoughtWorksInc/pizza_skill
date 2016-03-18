@@ -3,7 +3,5 @@ StartOrder order pizza
 StartOrder get pizza
 StartOrder feed me
 
-AddToOrder get me a {item1}
-AddToOrder get me {quantity1} {item1}
-AddToOrder get me {quantity1} {item1}'s
-AddToOrder I’ll have a one {item1}, an {item2} and a {item3} please
+AddToOrder get me a {item}
+AddToOrder get me {quantity} {item}

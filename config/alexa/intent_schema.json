@@ -1,1 +1,29 @@
-
+{
+  "intents": [
+    {
+      "intent": "StartOrder"
+    },
+    {
+      "intent": "AddToOrder",
+      "slots": [
+        {
+          "name": "item",
+          "type": "MenuItem"
+        },
+        {
+          "name": "quantity",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.YesIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
