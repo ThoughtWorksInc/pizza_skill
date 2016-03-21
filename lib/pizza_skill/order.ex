@@ -26,8 +26,8 @@ defmodule PizzaSkill.Order do
   end
 
   def add_item(order, name, qty) do
-    item = LineItem.new(name, qty)
-    %{order | items: [item|order.items] }
+    item = LineItem.new(name, qty)    
+    %{order | items: order.items++[item] }
   end
 
   def say(order) do

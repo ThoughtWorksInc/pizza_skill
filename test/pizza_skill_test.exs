@@ -15,7 +15,7 @@ defmodule PizzaSkillTest do
     refute should_end_session(response)
   end
 
-  test "AddToOrder - with a single item - adds the item to the order" do
+  test "AddToOrder - add the first item" do
     slot_values = %{ "item" => "Meat Lovers" }
     request = intent_request(@app_id, "AddToOrder", @user_id, slot_values)
     response = Alexa.handle_request(request)
@@ -23,19 +23,29 @@ defmodule PizzaSkillTest do
     assert %Order{
       items: [ %LineItem{ name: "Meat Lovers", qty: 1 } ]
     } = attribute(response, "order")
-    assert "ConfirmOrder" = attribute(response, "question")
-  end
-
-  test "AddToOrder - with a single item - responds correctly" do
-    slot_values = %{ "item" => "Meat Lovers" }
-    request = intent_request(@app_id, "AddToOrder", @user_id, slot_values)
-    response = Alexa.handle_request(request)
-
-    assert "Certainly. One Meat Lovers pizza. Shall I place the order now?" = say(response)
+    assert "AnythingElse" = attribute(response, "question")
+    assert "Ok. One Meat Lovers pizza. Anything else?" = say(response)
     refute should_end_session(response)
   end
 
-  test "AMAZON.YesIntent - when there is no order" do
+  test "AddToOrder - add a second item, with quantity" do
+    slot_values = %{ "item" => "Hawaiian", "quantity" => "2" }
+    attributes = %{ "order" => %{ "items" => [ %{ "name" => "Meat Lovers", "qty" => "1" } ] } }
+    request = intent_request(@app_id, "AddToOrder", @user_id, slot_values, attributes)
+    response = Alexa.handle_request(request)
+
+    assert %Order{
+      items: [
+        %LineItem{ name: "Meat Lovers", qty: 1 },
+        %LineItem{ name: "Hawaiian", qty: 2 }
+      ]
+    } = attribute(response, "order")
+    assert "AnythingElse" = attribute(response, "question")
+    assert "Ok. That's one Meat Lovers pizza and two Hawaiian pizzas. Anything else?" = say(response)
+    refute should_end_session(response)
+  end
+
+  test "AMAZON.YesIntent - when there is no question" do
     request = intent_request(@app_id, "AMAZON.YesIntent", @user_id)
     response = Alexa.handle_request(request)
 
@@ -43,7 +53,21 @@ defmodule PizzaSkillTest do
     refute should_end_session(response)
   end
 
-  test "AMAZON.YesIntent - order confirmation" do
+  test "AMAZON.YesIntent - anything else?" do
+    order = %Order{ items: [
+      %LineItem{ name: "Meat Lovers", qty: 1 }
+    ]}
+    request = intent_request(@app_id, "AMAZON.YesIntent", @user_id, %{}, %{
+      "order" => order,
+      "question" => "AnythingElse"
+    })
+    response = Alexa.handle_request(request)
+
+    assert "What else would you like?" = say(response)
+    refute should_end_session(response)
+  end
+
+  test "AMAZON.YesIntent - confirm order" do
     order = %Order{ items: [
       %LineItem{ name: "Meat Lovers", qty: 1 }
     ]}

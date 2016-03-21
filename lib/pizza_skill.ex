@@ -13,13 +13,17 @@ defmodule PizzaSkill do
     order = get_order(request) |> add_items(request)
     response
       |> Response.set_attribute("order", order)
-      |> Response.set_attribute("question", "ConfirmOrder")
-      |> say("Certainly. #{Order.say(order)} Shall I place the order now?")
+      |> Response.set_attribute("question", "AnythingElse")
+      |> say("Ok. #{Order.say(order)} Anything else?")
       |> should_end_session(false)
   end
 
   def handle_intent("AMAZON.YesIntent", request, response) do
     case Request.attribute(request, "question") do
+      "AnythingElse" ->
+        response
+          |> say("What else would you like?")
+          |> should_end_session(false)
       "ConfirmOrder" ->
         response
           |> say("Ok. Your pizza has been ordered and will arrive in about thirty five minutes.")

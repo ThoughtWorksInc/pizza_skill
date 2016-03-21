@@ -8,6 +8,11 @@ defmodule PizzaSkill.LineItem do
     %LineItem{ name: name }
   end
 
+  def new(name, qty) when is_binary(qty) do
+    {qty, _} = Integer.parse(qty)
+    new(name, qty)
+  end
+
   def new(name, qty) do
     %LineItem{ name: name, qty: qty }
   end
