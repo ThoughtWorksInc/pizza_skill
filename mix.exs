@@ -7,7 +7,17 @@ defmodule PizzaSkill.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: "Allows you to order a pizza.",
+     package: package,
      deps: deps]
+  end
+
+  def package do
+    [
+      maintainers: ["Colin Harris", "Aloysius Ang"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://bitbucket.org/Col/pizza_skill"}
+    ]
   end
 
   # Configuration for the OTP application
@@ -28,7 +38,7 @@ defmodule PizzaSkill.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:alexa, "~> 0.1.9"},
+      {:alexa, "~> 0.1.10"},
       {:poison, "~> 2.0"},
       {:inflex, "~> 1.5.0"}
     ]

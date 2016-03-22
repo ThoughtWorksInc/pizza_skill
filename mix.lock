@@ -1,3 +1,3 @@
-%{"alexa": {:hex, :alexa, "0.1.9"},
+%{"alexa": {:hex, :alexa, "0.1.10"},
   "inflex": {:hex, :inflex, "1.5.0"},
   "poison": {:hex, :poison, "2.1.0"}}

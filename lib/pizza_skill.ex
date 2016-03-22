@@ -12,8 +12,8 @@ defmodule PizzaSkill do
   def handle_intent("AddToOrder", request, response) do
     order = get_order(request) |> add_items(request)
     response
-      |> set_attribute("order", order)
-      |> set_attribute("question", "AnythingElse")
+      |> Response.set_attribute("order", order)
+      |> Response.set_attribute("question", "AnythingElse")
       |> say("Ok. #{Order.say(order)} Anything else?")
       |> should_end_session(false)
   end

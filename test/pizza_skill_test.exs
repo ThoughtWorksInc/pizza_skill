@@ -6,7 +6,7 @@ defmodule PizzaSkillTest do
   doctest PizzaSkill
 
   @user_id "User-1"
-  @app_id "unknown"
+  @app_id "amzn1.echo-sdk-ams.app.c180efd9-5985-4101-a9e2-fec9435e0cab"
 
   test "StartOrder" do
     request = intent_request(@app_id, "StartOrder", @user_id)
