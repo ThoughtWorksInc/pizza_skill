@@ -4,4 +4,12 @@ StartOrder get pizza
 StartOrder feed me
 
 AddToOrder get me a {item}
+AddToOrder get me a {item} pizza
+AddToOrder get me an {item}
+AddToOrder get me an {item} pizza
 AddToOrder get me {quantity} {item}
+AddToOrder get me {quantity} {item} pizza
+AddToOrder get me a {item} pizza and a {itemtwo} pizza
+AddToOrder get me an {item} pizza and a {itemtwo} pizza
+AddToOrder get me {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder get me {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
