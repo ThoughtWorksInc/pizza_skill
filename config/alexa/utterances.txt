@@ -2,6 +2,12 @@ StartOrder order me a pizza
 StartOrder order pizza
 StartOrder get pizza
 StartOrder feed me
+StartOrder get food
+StartOrder feed the office
+StartOrder I'm hungry
+StartOrder I am hungry
+StartOrder I'm really hungry
+StartOrder I am really hungry
 
 AddToOrder get me a {item}
 AddToOrder get me a {item} pizza

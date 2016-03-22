@@ -1,5 +1,5 @@
 defmodule PizzaSkill do
-  use Alexa.Skill, app_id: "unknown"
+  use Alexa.Skill, app_id: "amzn1.echo-sdk-ams.app.c180efd9-5985-4101-a9e2-fec9435e0cab"
   alias PizzaSkill.Order
   alias Alexa.{Request, Response}
 
@@ -12,8 +12,8 @@ defmodule PizzaSkill do
   def handle_intent("AddToOrder", request, response) do
     order = get_order(request) |> add_items(request)
     response
-      |> Response.set_attribute("order", order)
-      |> Response.set_attribute("question", "AnythingElse")
+      |> set_attribute("order", order)
+      |> set_attribute("question", "AnythingElse")
       |> say("Ok. #{Order.say(order)} Anything else?")
       |> should_end_session(false)
   end
