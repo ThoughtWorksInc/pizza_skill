@@ -25,10 +25,12 @@ defmodule PizzaSkill.Order do
     (order.items || []) |> Enum.count
   end
 
+  def add_item(order, nil, nil) do
+    order
+  end
   def add_item(order, name, nil) do
     add_item(order, name, 1)
   end
-
   def add_item(order, name, qty) do
     item = LineItem.new(name, qty)
     %{order | items: order.items++[item] }

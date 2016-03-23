@@ -10,7 +10,7 @@ defmodule PizzaSkill do
   end
 
   def handle_intent("AddToOrder", request, response) do
-    order = get_order(request) |> add_items(request)
+    order = get_order(request) |> add_items(request) |> add_items(request, "two")
     response
       |> Response.set_attribute("order", order)
       |> Response.set_attribute("question", "AnythingElse")
@@ -65,9 +65,9 @@ defmodule PizzaSkill do
     end
   end
 
-  defp add_items(order, request) do
-    item = Request.slot_value(request, "item")
-    qty = Request.slot_value(request, "quantity")
+  defp add_items(order, request, suffix \\ "") do
+    item = Request.slot_value(request, "item"<>suffix)
+    qty = Request.slot_value(request, "quantity"<>suffix)
     Order.add_item(order, item, qty)
   end
 

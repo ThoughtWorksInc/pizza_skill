@@ -1,9 +1,7 @@
 defmodule PizzaSkillTest do
   use Pavlov.Case, async: true
-  # import Pavlov.Syntax.Expect
   alias PizzaSkill.{Order, LineItem}
-  import Alexa.Response
-  import Alexa.TestHelpers
+  import Alexa.{Response, TestHelpers}
   doctest PizzaSkill
 
   @app_id "test-app-id"
@@ -12,41 +10,88 @@ defmodule PizzaSkillTest do
     intent_request("test-app-id", intent_name, nil, slot_values, attributes)
   end
 
-  test "StartOrder" do
-    request = create_request("StartOrder")
-    response = Alexa.handle_request(request)
-    assert "Certainly, what kind of pizza would you like?" = say(response)
-    refute should_end_session(response)
-  end
+  context "with no existing order" do
 
-  test "AddToOrder - add the first item" do
-    slot_values = %{ "item" => "Meat Lovers" }
-    request = create_request("AddToOrder", slot_values)
-    response = Alexa.handle_request(request)
+    describe "launching the skill" do
+      let :request, do: PizzaSkillTest.create_request("StartOrder")
+      subject do: Alexa.handle_request(request)
 
-    assert %Order{
-      items: [ %LineItem{ name: "Meat Lovers", qty: 1 } ]
-    } = attribute(response, "order")
-    assert "AnythingElse" = attribute(response, "question")
-    assert "Ok. One Meat Lovers pizza. Anything else?" = say(response)
-    refute should_end_session(response)
-  end
+      it "should respond with a greating" do
+        assert "Certainly, what kind of pizza would you like?" = say(subject)
+      end
+      it "should leave the session open" do
+        refute should_end_session(subject)
+      end
+    end
 
-  test "AddToOrder - add a second item, with quantity" do
-    slot_values = %{ "item" => "Hawaiian", "quantity" => "2" }
-    attributes = %{ "order" => %{ "items" => [ %{ "name" => "Meat Lovers", "qty" => "1" } ] } }
-    request = create_request("AddToOrder", slot_values, attributes)
-    response = Alexa.handle_request(request)
+    describe "adding a single item with no quantity" do
+      let :request, do: PizzaSkillTest.create_request("AddToOrder", %{ "item" => "Meat Lovers" })
+      subject do: Alexa.handle_request(request)
 
-    assert %Order{
-      items: [
-        %LineItem{ name: "Meat Lovers", qty: 1 },
-        %LineItem{ name: "Hawaiian", qty: 2 }
-      ]
-    } = attribute(response, "order")
-    assert "AnythingElse" = attribute(response, "question")
-    assert "Ok. That's one Meat Lovers pizza and two Hawaiian pizzas. Anything else?" = say(response)
-    refute should_end_session(response)
+      it "should create a new order with the correct item" do
+        expected_order = %Order{ items: [ %LineItem{ name: "Meat Lovers", qty: 1 } ] }
+        assert ^expected_order = attribute(subject, "order")
+      end
+
+      it "should repeat the order and ask if the user wants anything else" do
+        assert "Ok. One Meat Lovers pizza. Anything else?" = say(subject)
+        assert "AnythingElse" = attribute(subject, "question")
+      end
+
+      it "should leave the session open" do
+        refute should_end_session(subject)
+      end
+    end
+
+    describe "adding an item with a quantity of two" do
+      let :request, do: PizzaSkillTest.create_request("AddToOrder", %{ "item" => "Meat Lovers", "quantity" => 2 })
+      subject do: Alexa.handle_request(request)
+
+      it "should create a new order with the correct item and quantity" do
+        expected_order = %Order{ items: [ %LineItem{ name: "Meat Lovers", qty: 2 } ] }
+        assert ^expected_order = attribute(subject, "order")
+      end
+
+      it "should repeat the order and ask if the user wants anything else" do
+        assert "Ok. Two Meat Lovers pizzas. Anything else?" = say(subject)
+        assert "AnythingElse" = attribute(subject, "question")
+      end
+
+      it "should leave the session open" do
+        refute should_end_session(subject)
+      end
+    end
+
+    describe "adding multiple items" do
+      let :request do
+        PizzaSkillTest.create_request(
+          "AddToOrder",
+          %{
+            "item" => "Meat Lovers",
+            "itemtwo" => "Hawaiian", "quantitytwo" => 2
+          }
+        )
+      end
+      subject do: Alexa.handle_request(request)
+
+      it "should create a new order with the correct items and quantities" do
+        expected_order = %Order{ items: [
+          %LineItem{ name: "Meat Lovers", qty: 1 },
+          %LineItem{ name: "Hawaiian", qty: 2 }
+        ] }
+        assert ^expected_order = attribute(subject, "order")
+      end
+
+      it "should repeat the order and ask if the user wants anything else" do
+        assert "Ok. That's one Meat Lovers pizza and two Hawaiian pizzas. Anything else?" = say(subject)
+        assert "AnythingElse" = attribute(subject, "question")
+      end
+
+      it "should leave the session open" do
+        refute should_end_session(subject)
+      end
+    end
+
   end
 
   context "with an existing order" do
@@ -54,8 +99,32 @@ defmodule PizzaSkillTest do
       %PizzaSkill.Order{ items: [ %PizzaSkill.LineItem{ name: "Meat Lovers", qty: 1 } ]}
     end
 
-    describe "adding more items" do
+    describe "add a single item to an existing order" do
+      let :request do
+        PizzaSkillTest.create_request(
+          "AddToOrder",
+          %{ "item" => "Hawaiian", "quantity" => 2 },
+          %{ "order" => PizzaSkill.Order.to_map(order) }
+        )
+      end
+      subject do: Alexa.handle_request(request)
 
+      it "should the the new item to the existing order" do
+        expected_order = %Order{ items: [
+          %LineItem{ name: "Meat Lovers", qty: 1 },
+          %LineItem{ name: "Hawaiian", qty: 2 }
+        ] }
+        assert ^expected_order = attribute(subject, "order")
+      end
+
+      it "should repeat the complete order and ask the user if they want anything else" do
+        assert "Ok. That's one Meat Lovers pizza and two Hawaiian pizzas. Anything else?" = say(subject)
+        assert "AnythingElse" = attribute(subject, "question")
+      end
+
+      it "should leave the session open" do
+        refute should_end_session(subject)
+      end
     end
 
     context "when asked for anything else?" do
@@ -168,6 +237,5 @@ defmodule PizzaSkillTest do
     end
 
   end
-
 
 end
