@@ -1,15 +1,19 @@
 defmodule PizzaSkillTest do
-  use ExUnit.Case
+  use Pavlov.Case, async: true
+  # import Pavlov.Syntax.Expect
   alias PizzaSkill.{Order, LineItem}
   import Alexa.Response
   import Alexa.TestHelpers
   doctest PizzaSkill
 
-  @user_id "User-1"
-  @app_id "amzn1.echo-sdk-ams.app.c180efd9-5985-4101-a9e2-fec9435e0cab"
+  @app_id "test-app-id"
+
+  def create_request(intent_name, slot_values \\ %{}, attributes \\ %{}) do
+    intent_request("test-app-id", intent_name, nil, slot_values, attributes)
+  end
 
   test "StartOrder" do
-    request = intent_request(@app_id, "StartOrder", @user_id)
+    request = create_request("StartOrder")
     response = Alexa.handle_request(request)
     assert "Certainly, what kind of pizza would you like?" = say(response)
     refute should_end_session(response)
@@ -17,7 +21,7 @@ defmodule PizzaSkillTest do
 
   test "AddToOrder - add the first item" do
     slot_values = %{ "item" => "Meat Lovers" }
-    request = intent_request(@app_id, "AddToOrder", @user_id, slot_values)
+    request = create_request("AddToOrder", slot_values)
     response = Alexa.handle_request(request)
 
     assert %Order{
@@ -31,7 +35,7 @@ defmodule PizzaSkillTest do
   test "AddToOrder - add a second item, with quantity" do
     slot_values = %{ "item" => "Hawaiian", "quantity" => "2" }
     attributes = %{ "order" => %{ "items" => [ %{ "name" => "Meat Lovers", "qty" => "1" } ] } }
-    request = intent_request(@app_id, "AddToOrder", @user_id, slot_values, attributes)
+    request = create_request("AddToOrder", slot_values, attributes)
     response = Alexa.handle_request(request)
 
     assert %Order{
@@ -45,19 +49,44 @@ defmodule PizzaSkillTest do
     refute should_end_session(response)
   end
 
-  test "AMAZON.YesIntent - when there is no question" do
-    request = intent_request(@app_id, "AMAZON.YesIntent", @user_id)
-    response = Alexa.handle_request(request)
+  context "with an existing order" do
 
-    assert "Your sphincter says what?" = say(response)
-    refute should_end_session(response)
+    describe "adding more items" do
+
+    end
+
+    context "when asked for anything else?" do
+
+    end
+
+    context "when asked to confirm the order?" do
+
+    end
+
+    context "when these is no active question" do
+
+      describe "yes" do
+        let :request, do: PizzaSkillTest.create_request("AMAZON.YesIntent")
+        subject do: Alexa.handle_request(request)
+
+        it "should respond with a question" do
+          assert "Your sphincter says what?" = say(subject)
+        end
+
+        it "should not end the session" do
+          refute should_end_session(subject)
+        end
+      end
+
+    end
+
   end
 
   test "AMAZON.YesIntent - anything else?" do
     order = %Order{ items: [
       %LineItem{ name: "Meat Lovers", qty: 1 }
     ]}
-    request = intent_request(@app_id, "AMAZON.YesIntent", @user_id, %{}, %{
+    request = create_request("AMAZON.YesIntent", %{}, %{
       "order" => order,
       "question" => "AnythingElse"
     })
@@ -71,7 +100,7 @@ defmodule PizzaSkillTest do
     order = %Order{ items: [
       %LineItem{ name: "Meat Lovers", qty: 1 }
     ]}
-    request = intent_request(@app_id, "AMAZON.YesIntent", @user_id, %{}, %{
+    request = create_request("AMAZON.YesIntent", %{}, %{
       "order" => order,
       "question" => "ConfirmOrder"
     })
@@ -79,6 +108,44 @@ defmodule PizzaSkillTest do
 
     assert "Ok. Your pizza has been ordered and will arrive in about thirty five minutes." = say(response)
     assert should_end_session(response)
+  end
+
+  test "AMAZON.NoIntent - when there is no question" do
+    request = create_request("AMAZON.NoIntent")
+    response = Alexa.handle_request(request)
+
+    assert "Your sphincter says what?" = say(response)
+    refute should_end_session(response)
+  end
+
+  test "AMAZON.NoIntent - anything else?" do
+    order_map = %{ "items" => [ %{ "name" => "Meat Lovers", "qty" => 1 } ]}
+    request = create_request("AMAZON.NoIntent", %{}, %{
+      "order" => order_map,
+      "question" => "AnythingElse"
+    })
+    response = Alexa.handle_request(request)
+
+    expected_order = Order.from_map(order_map)
+    assert ^expected_order = attribute(response, "order")
+    assert "ConfirmOrder" = attribute(response, "question")
+    assert "Shall I place the order now?" = say(response)
+    refute should_end_session(response)
+  end
+
+  test "AMAZON.NoIntent - confirm order" do
+    order_map = %{ "items" => [ %{ "name" => "Meat Lovers", "qty" => 1 } ]}
+    request = create_request("AMAZON.NoIntent", %{}, %{
+      "order" => order_map,
+      "question" => "ConfirmOrder"
+    })
+    response = Alexa.handle_request(request)
+
+    expected_order = Order.from_map(order_map)
+    assert ^expected_order = attribute(response, "order")
+    assert "AnythingElse" = attribute(response, "question")
+    assert "What else would you like?" = say(response)
+    refute should_end_session(response)
   end
 
 end

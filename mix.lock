@@ -1,3 +1,5 @@
-%{"alexa": {:hex, :alexa, "0.1.10"},
+%{"alexa": {:hex, :alexa, "0.1.11"},
   "inflex": {:hex, :inflex, "1.5.0"},
+  "meck": {:hex, :meck, "0.8.4"},
+  "pavlov": {:git, "https://github.com/sproutapp/pavlov", "7f3c0d7c75c8c2875e21b495511a291194bfc85a", []},
   "poison": {:hex, :poison, "2.1.0"}}

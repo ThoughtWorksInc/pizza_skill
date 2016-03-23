@@ -35,6 +35,27 @@ defmodule PizzaSkill do
     end
   end
 
+  def handle_intent("AMAZON.NoIntent", request, response) do
+    case Request.attribute(request, "question") do
+      "AnythingElse" ->
+        response
+          |> Response.set_attribute("order", get_order(request))
+          |> Response.set_attribute("question", "ConfirmOrder")
+          |> say("Shall I place the order now?")
+          |> should_end_session(false)
+      "ConfirmOrder" ->
+        response
+          |> Response.set_attribute("order", get_order(request))
+          |> Response.set_attribute("question", "AnythingElse")
+          |> say("What else would you like?")
+          |> should_end_session(false)
+      _ ->
+        response
+          |> say("Your sphincter says what?")
+          |> should_end_session(false)
+    end
+  end
+
   defp get_order(request) do
     case Request.attribute(request, "order") do
       nil -> %Order{}

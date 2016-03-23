@@ -1,2 +1,3 @@
-ExUnit.start()
-PizzaSkill.start_link
+PizzaSkill.start_link([app_id: "test-app-id"])
+ExUnit.start
+Pavlov.start
