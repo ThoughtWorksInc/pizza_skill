@@ -22,6 +22,8 @@ defmodule PizzaSkill do
     case Request.attribute(request, "question") do
       "AnythingElse" ->
         response
+          |> Response.set_attribute("order", get_order(request))
+          |> Response.set_attribute("question", "AnythingElse")
           |> say("What else would you like?")
           |> should_end_session(false)
       "ConfirmOrder" ->

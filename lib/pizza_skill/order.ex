@@ -17,6 +17,10 @@ defmodule PizzaSkill.Order do
     Poison.encode!(order)
   end
 
+  def to_map(order) do
+    Poison.decode!(Poison.encode!(order))
+  end
+
   def num_items(order) do
     (order.items || []) |> Enum.count
   end
@@ -26,7 +30,7 @@ defmodule PizzaSkill.Order do
   end
 
   def add_item(order, name, qty) do
-    item = LineItem.new(name, qty)    
+    item = LineItem.new(name, qty)
     %{order | items: order.items++[item] }
   end
 

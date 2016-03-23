@@ -7,7 +7,7 @@ defmodule PizzaSkill.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     description: "Allows you to order a pizza.",
+     description: "Allows you to order a pizza via Echo / Alexa.",
      package: package,
      deps: deps]
   end
