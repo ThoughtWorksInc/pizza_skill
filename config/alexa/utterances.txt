@@ -105,12 +105,58 @@ AddToOrder I would like an {item} pizza and a {itemtwo} pizza
 AddToOrder I would like {quantity} {item} pizzas and a {itemtwo} pizza
 AddToOrder I would like {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
 
+AddToOrder I'll also have a {item}
+AddToOrder I'll also have a {item} pizza
+AddToOrder I'll also have an {item}
+AddToOrder I'll also have an {item} pizza
+AddToOrder I'll also have {quantity} {item}
+AddToOrder I'll also have {quantity} {item} pizza
+AddToOrder I'll also have a {item} pizza and a {itemtwo} pizza
+AddToOrder I'll also have an {item} pizza and a {itemtwo} pizza
+AddToOrder I'll also have {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder I'll also have {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder I will also have a {item}
+AddToOrder I will also have a {item} pizza
+AddToOrder I will also have an {item}
+AddToOrder I will also have an {item} pizza
+AddToOrder I will also have {quantity} {item}
+AddToOrder I will also have {quantity} {item} pizza
+AddToOrder I will also have a {item} pizza and a {itemtwo} pizza
+AddToOrder I will also have an {item} pizza and a {itemtwo} pizza
+AddToOrder I will also have {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder I will also have {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder and a {item}
+AddToOrder and a {item} pizza
+AddToOrder and an {item}
+AddToOrder and an {item} pizza
+AddToOrder and {quantity} {item}
+AddToOrder and {quantity} {item} pizza
+AddToOrder and a {item} pizza and a {itemtwo} pizza
+AddToOrder and an {item} pizza and a {itemtwo} pizza
+AddToOrder and {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder and {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
 AMAZON.NoIntent no thanks
 AMAZON.NoIntent no way
 AMAZON.NoIntent negative
 AMAZON.NoIntent definitely not
+AMAZON.NoIntent no that's enough
+AMAZON.NoIntent no that is enough
+AMAZON.NoIntent that's enough
+AMAZON.NoIntent that is enough
+AMAZON.NoIntent that should be enough
+AMAZON.NoIntent I think that'll do
+AMAZON.NoIntent that'll be heaps
+AMAZON.NoIntent no we're done
 
 AMAZON.YesIntent hell yeah
 AMAZON.YesIntent yes please
 AMAZON.YesIntent of course
 AMAZON.YesIntent make it so
+AMAZON.YesIntent yeah order it
+AMAZON.YesIntent yes please hurry
+AMAZON.YesIntent yes give me more
+AMAZON.YesIntent yeah we're pretty hungry
+AMAZON.YesIntent yeah we are pretty hungry
