@@ -1,14 +1,44 @@
 StartOrder order me a pizza
+StartOrder order me some pizza
 StartOrder order pizza
 StartOrder get pizza
+StartOrder get some pizza
+StartOrder get some pizzas
 StartOrder feed me
+StartOrder feed us
 StartOrder get food
+StartOrder get food for tonight
 StartOrder feed the office
 StartOrder I'm hungry
 StartOrder I am hungry
 StartOrder I'm really hungry
 StartOrder I am really hungry
+StartOrder I'm dying of hunger
+StartOrder I am dying of hunger
+StartOrder I'm in need of pizza
+StartOrder I am in need of pizza
+StartOrder I'm ravenous
+StartOrder I am ravenous
+StartOrder I'm starving
+StartOrder I am starving
 
+StartOrder we're hungry
+StartOrder we are hungry
+StartOrder we're really hungry
+StartOrder we are really hungry
+StartOrder we're dying of hunger
+StartOrder we are dying of hunger
+StartOrder we're in need of pizza
+StartOrder we are in need of pizza
+StartOrder we're ravenous
+StartOrder we are ravenous
+StartOrder we're starving
+StartOrder we are starving
+
+AddToOrder {item}
+AddToOrder {quantity} {item}
+AddToOrder {item} pizza
+AddToOrder {quantity} {item} pizza
 AddToOrder get me a {item}
 AddToOrder get me a {item} pizza
 AddToOrder get me an {item}
@@ -19,3 +49,68 @@ AddToOrder get me a {item} pizza and a {itemtwo} pizza
 AddToOrder get me an {item} pizza and a {itemtwo} pizza
 AddToOrder get me {quantity} {item} pizzas and a {itemtwo} pizza
 AddToOrder get me {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder can I have a {item}
+AddToOrder can I have a {item} pizza
+AddToOrder can I have an {item}
+AddToOrder can I have an {item} pizza
+AddToOrder can I have {quantity} {item}
+AddToOrder can I have {quantity} {item} pizza
+AddToOrder can I have a {item} pizza and a {itemtwo} pizza
+AddToOrder can I have an {item} pizza and a {itemtwo} pizza
+AddToOrder can I have {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder can I have {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder I'll have a {item}
+AddToOrder I'll have a {item} pizza
+AddToOrder I'll have an {item}
+AddToOrder I'll have an {item} pizza
+AddToOrder I'll have {quantity} {item}
+AddToOrder I'll have {quantity} {item} pizza
+AddToOrder I'll have a {item} pizza and a {itemtwo} pizza
+AddToOrder I'll have an {item} pizza and a {itemtwo} pizza
+AddToOrder I'll have {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder I'll have {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder I will have a {item}
+AddToOrder I will have a {item} pizza
+AddToOrder I will have an {item}
+AddToOrder I will have an {item} pizza
+AddToOrder I will have {quantity} {item}
+AddToOrder I will have {quantity} {item} pizza
+AddToOrder I will have a {item} pizza and a {itemtwo} pizza
+AddToOrder I will have an {item} pizza and a {itemtwo} pizza
+AddToOrder I will have {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder I will have {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder I'd like a {item}
+AddToOrder I'd like a {item} pizza
+AddToOrder I'd like an {item}
+AddToOrder I'd like an {item} pizza
+AddToOrder I'd like {quantity} {item}
+AddToOrder I'd like {quantity} {item} pizza
+AddToOrder I'd like a {item} pizza and a {itemtwo} pizza
+AddToOrder I'd like an {item} pizza and a {itemtwo} pizza
+AddToOrder I'd like {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder I'd like {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AddToOrder I would like a {item}
+AddToOrder I would like a {item} pizza
+AddToOrder I would like an {item}
+AddToOrder I would like an {item} pizza
+AddToOrder I would like {quantity} {item}
+AddToOrder I would like {quantity} {item} pizza
+AddToOrder I would like a {item} pizza and a {itemtwo} pizza
+AddToOrder I would like an {item} pizza and a {itemtwo} pizza
+AddToOrder I would like {quantity} {item} pizzas and a {itemtwo} pizza
+AddToOrder I would like {quantity} {item} pizzas and {quantitytwo} {itemtwo} pizzas
+
+AMAZON.NoIntent no thanks
+AMAZON.NoIntent no way
+AMAZON.NoIntent negative
+AMAZON.NoIntent definitely not
+
+AMAZON.YesIntent hell yeah
+AMAZON.YesIntent yes please
+AMAZON.YesIntent of course
+AMAZON.YesIntent make it so
