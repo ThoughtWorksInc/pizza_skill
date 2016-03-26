@@ -1,5 +1,5 @@
 defmodule PizzaSkill do
-  use Alexa.Skill, app_id: "amzn1.echo-sdk-ams.app.c180efd9-5985-4101-a9e2-fec9435e0cab"
+  use Alexa.Skill, app_id: Application.get_env(:pizz_skill, :app_id)
   alias PizzaSkill.Order
   alias Alexa.{Request, Response}
 
