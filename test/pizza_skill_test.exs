@@ -1,13 +1,14 @@
 defmodule PizzaSkillTest do
   use Pavlov.Case, async: true
+  import Alexa.Response
   alias PizzaSkill.{Order, LineItem}
-  import Alexa.{Response, TestHelpers}
+  alias Alexa.Request
   doctest PizzaSkill
 
   @app_id "test-app-id"
 
   def create_request(intent_name, slot_values \\ %{}, attributes \\ %{}) do
-    intent_request("test-app-id", intent_name, nil, slot_values, attributes)
+    Request.intent_request("test-app-id", intent_name, nil, slot_values, attributes)
   end
 
   context "with no existing order" do
