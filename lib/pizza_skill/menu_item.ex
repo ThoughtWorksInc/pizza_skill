@@ -3,36 +3,32 @@ defmodule PizzaSkill.MenuItem do
 
   defstruct [:name, :ingredients, :price]
 
-  def anna_pizza do
-    ingredients = ["Tomato", "Mozzarella", "Bolognese Sauce", "Mixed Mushrooms"]
-    %MenuItem{ name: "Anna", ingredients: ingredients, price: 22.5 }
+  def mushroom_pizza do
+    %MenuItem{ name: "Mushroom", ingredients: [], price: 22.5 }
   end
 
-  def barbara_pizza do
-    ingredients = ["Tomato", "Mozzarella", "Hot Italian Minced Pork", "Red Onions", "Olives"]
-    %MenuItem{ name: "Barbara", ingredients: ingredients, price: 22.5 }
+  def margherita_pizza do
+    %MenuItem{ name: "Margherita", ingredients: [], price: 22.5 }
   end
 
-  def claudia_pizza do
-    ingredients = ["Tomato", "Bell Peppers", "Zucchini", "Eggplants", "Artichokes", "Mushrooms"]
-    %MenuItem{ name: "Claudia", ingredients: ingredients, price: 22.0 }
+  def pepperoni_pizza do
+    %MenuItem{ name: "Pepperoni", ingredients: [], price: 22.0 }
   end
 
-  def donna_pizza do
-    ingredients = ["Tomato", "Mozzarella", "Artichokes", "Mushrooms", "Cooked Ham", "Olives"]
-    %MenuItem{ name: "Donna", ingredients: ingredients, price: 23.0 }
+  def hawaiian_pizza do
+    %MenuItem{ name: "Hawaiian", ingredients: [], price: 23.0 }
   end
 
-  # salads
-
-  def cesare_salad do
-    ingredients = ["Romaine Lettuce", "Bread Croutons", "Chicken Breast", "Caesar Dressing"]
-    %MenuItem{ name: "Cesare Salad", ingredients: ingredients, price: 12.8 }
+  def barbeque_chicken_pizza do
+    %MenuItem{ name: "Barbeque Chicken", ingredients: [], price: 23.0 }
   end
 
-  def caprese_salad do
-    ingredients = ["Buffalo Mozzarella", "Tomato", "Fresh Basil", "Pesto Sauce"]
-    %MenuItem{ name: "Caprese Salad", ingredients: ingredients, price: 13.5 }
+  def double_cheese_pizza do
+    %MenuItem{ name: "Double Cheese", ingredients: [], price: 23.0 }
+  end
+
+  def vegetarian_pizza do
+    %MenuItem{ name: "Vegetarian", ingredients: [], price: 23.0 }
   end
 
 end
