@@ -1,16 +1,20 @@
 defmodule PizzaSkill do
   use Alexa.Skill, app_id: Application.get_env(:pizz_skill, :app_id)
-  alias PizzaSkill.Order
+  alias PizzaSkill.{Order, EventHandler}
   alias Alexa.{Request, Response}
 
   def handle_intent("StartOrder", _, response) do
+    EventHandler.start_order(%Order{})
     response
       |> say("Certainly, what kind of pizza would you like?")
       |> should_end_session(false)
   end
 
   def handle_intent("AddToOrder", request, response) do
-    order = get_order(request) |> add_items(request) |> add_items(request, "two")
+    order = get_order(request)
+      |> add_items(request)
+      |> add_items(request, "two")
+      |> EventHandler.add_item
     response
       |> Response.set_attribute("order", order)
       |> Response.set_attribute("question", "AnythingElse")
@@ -27,6 +31,7 @@ defmodule PizzaSkill do
           |> say("What else would you like?")
           |> should_end_session(false)
       "ConfirmOrder" ->
+        EventHandler.confirm_order(get_order(request))
         response
           |> say("Ok. Your pizza has been ordered and will arrive in about thirty five minutes.")
           |> should_end_session(true)
