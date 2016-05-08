@@ -18,7 +18,7 @@ defmodule PizzaSkillTest do
       subject do: Alexa.handle_request(request)
 
       it "should respond with greeting" do
-        assert "Hello user two" = say(subject)
+        assert "Hello" = say(subject)
       end
     end
 

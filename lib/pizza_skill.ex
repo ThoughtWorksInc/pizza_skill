@@ -1,14 +1,14 @@
 defmodule PizzaSkill do
   use Alexa.Skill, app_id: Application.get_env(:pizz_skill, :app_id)
-  alias PizzaSkill.{Order, EventHandler}
+  alias PizzaSkill.{Order, EventHandler, AuthEventHandler}
   alias Alexa.{Request, Response}
 
   def handle_intent("Login", request, response) do
-    EventHandler.login(request, response)
+    AuthEventHandler.login(request, response)
   end
 
   def handle_intent("Logout", request, response) do
-    EventHandler.logout(request, response)
+    AuthEventHandler.logout(request, response)
   end
 
   def handle_intent("StartOrder", request, response) do
