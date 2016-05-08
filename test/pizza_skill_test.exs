@@ -11,6 +11,32 @@ defmodule PizzaSkillTest do
     Request.intent_request("test-app-id", intent_name, nil, slot_values, attributes)
   end
 
+  context "when not logged in" do
+
+    describe "successfull login" do
+      let :request, do: PizzaSkillTest.create_request("Login", %{ "username" => 2 })
+      subject do: Alexa.handle_request(request)
+
+      it "should respond with greeting" do
+        assert "Hello user two" = say(subject)
+      end
+    end
+
+  end
+
+  context "when logged in" do
+
+    describe "successfull logout" do
+      let :request, do: PizzaSkillTest.create_request("Logout")
+      subject do: Alexa.handle_request(request)
+
+      it "should respond with good bye" do
+        assert "Good bye" = say(subject)
+      end
+    end
+
+  end
+
   context "with no existing order" do
 
     describe "launching the skill" do

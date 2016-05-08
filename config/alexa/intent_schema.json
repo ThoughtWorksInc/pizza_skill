@@ -1,6 +1,18 @@
 {
   "intents": [
     {
+      "intent": "Login",
+      "slots": [
+        {
+          "name": "username",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "Logout"
+    },
+    {
       "intent": "StartOrder"
     },
     {

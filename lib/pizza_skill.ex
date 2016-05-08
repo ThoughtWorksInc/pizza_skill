@@ -3,6 +3,14 @@ defmodule PizzaSkill do
   alias PizzaSkill.{Order, EventHandler}
   alias Alexa.{Request, Response}
 
+  def handle_intent("Login", request, response) do
+    EventHandler.login(request, response)
+  end
+
+  def handle_intent("Logout", request, response) do
+    EventHandler.logout(request, response)
+  end
+
   def handle_intent("StartOrder", request, response) do
     EventHandler.start_order(%Order{}, request)
     response
