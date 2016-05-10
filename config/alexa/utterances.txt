@@ -1062,6 +1062,9 @@ AddToOrder I will also have {quantity} {item} pizzas and an {itemtwo} pizzas
 AddToOrder I will also have {quantity} {item} pizzas and {quantity} {itemtwo}
 AddToOrder I will also have {quantity} {item} pizzas and {quantity} {itemtwo} pizza
 AddToOrder I will also have {quantity} {item} pizzas and {quantity} {itemtwo} pizzas
+Login login user {username}
+Login register mirror {username}
+Logout logout
 AMAZON.NoIntent no
 AMAZON.NoIntent no thank you
 AMAZON.NoIntent no thanks
@@ -1070,7 +1073,6 @@ AMAZON.NoIntent no thanks thanks
 AMAZON.NoIntent no way
 AMAZON.NoIntent no way thank you
 AMAZON.NoIntent no way thanks
-AMAZON.NoIntent
 AMAZON.NoIntent thank you
 AMAZON.NoIntent thanks
 AMAZON.NoIntent we're done
